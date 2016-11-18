@@ -1,0 +1,19 @@
+FROM openjdk:8-jre-alpine
+LABEL role='libreoffice' version='0.0.1' tags='libreoffice,openoffice' description='libfreoffice conversion with jre8 support'
+#set enviroments
+ENV TIMEZONE="Asia/Shanghai" \
+    VERSION=5.1.4
+#install software
+RUN apk update && \
+    apk add tzdata \
+    libreoffice && \
+#Cleaning up
+#   apk del tzdata && \
+    cp /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && \
+    rm -rf /var/cache/apk/*
+#forwarding port
+#EXPOSE 8001
+#VOLUME ["/usr/share/fonts/msfonts"]
+#set default command
+#ENTRYPOINT ["/usr/bin/soffice","--headless"]
+#CMD ["--norestore","--accept='socket,host=0,port=8001,tcpNoDelay=1;urp;'"]
