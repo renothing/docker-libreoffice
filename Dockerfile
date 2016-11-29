@@ -16,6 +16,7 @@ RUN apt-get update && \
     apt-get -y install libreoffice --no-install-recommends --no-install-suggests && \
 #Cleaning up
     cp /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo "${TIMEZONE}" > /etc/timezone && \
+    echo "${TIMEZONE}" > /etc/timezone && \
     dpkg-reconfigure fontconfig && fc-cache -f -s -v && rm -rf /srv/* 
 #forwarding port
 #EXPOSE 8001

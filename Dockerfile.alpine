@@ -10,6 +10,7 @@ RUN apk update && \
 #Cleaning up
 #   apk del tzdata && \
     cp /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && \
+    echo "${TIMEZONE}" > /etc/timezone && \
     rm -rf /var/cache/apk/*
 #forwarding port
 #EXPOSE 8001
