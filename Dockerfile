@@ -2,7 +2,7 @@ FROM openjdk:8-jre
 LABEL role='libreoffice' version='0.0.1' tags='libreoffice,openoffice' description='libfreoffice conversion with jre8 support'
 #set enviroments
 ENV TIMEZONE="Asia/Shanghai" \
-    VERSION=5.2.3
+    VERSION=5.2.4
 #install software
 RUN apt-get update && \
     echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true |debconf-set-selections && \
