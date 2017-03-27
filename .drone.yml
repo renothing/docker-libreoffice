@@ -1,0 +1,35 @@
+#global docker info
+dockerpub: &dockerinfo
+   image: plugins/docker
+   volumes:
+     - /var/run/docker.sock:/var/run/docker.sock
+   force_tag: true
+   mirror: "https://docker.mirrors.ustc.edu.cn"
+   registry: ${ALI_DOCKER_URL}
+   username: ${ALI_DOCKER_USER}
+   password: ${ALI_DOCKER_PASS}
+   email: ${ALI_DOCKER_USER}
+   repo: "${ALI_DOCKER_URL}/winshare/libreoffice"
+pipeline:
+  clone:
+    image: plugins/git
+    recursive: true
+    tags: true
+  libreoffice-jre8:
+    <<: *dockerinfo
+    tags:
+      - ${DRONE_TAG=latest}
+      - latest
+    dockerfile: Dockerfile
+    when:
+      event: [push,tag]
+      branch: [master, refs/tags/*]
+  libreoffice-jre8-alpine:
+    <<: *dockerinfo
+    tags:
+      - ${DRONE_TAG/${DRONE_TAG}/${DRONE_TAG}-alpine}
+      - alpine
+    dockerfile: Dockerfile.alpine
+    when:
+      event: [push,tag]
+      branch: [master, refs/tags/*]
