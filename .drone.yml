@@ -27,9 +27,17 @@ pipeline:
   libreoffice-jre8-alpine:
     <<: *dockerinfo
     tags:
+      - alpine
+    dockerfile: Dockerfile.alpine
+    when:
+      event: push
+      branch: master
+  tag-libreoffice-jre8-alpine:
+    <<: *dockerinfo
+    tags:
       - ${DRONE_TAG/${DRONE_TAG}/${DRONE_TAG}-alpine}
       - alpine
     dockerfile: Dockerfile.alpine
     when:
-      event: [push,tag]
+      event: tag
       branch: [master, refs/tags/*]
